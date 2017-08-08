@@ -3,6 +3,27 @@
 
 
 window.onload = function () {
+
+  Vue.component('list-todo',{
+    props :["list-task","edit","edit-modal","delete-list"],
+    template:
+    `  <table class="table table-hover">
+        <tr v-for ="list in listTask" class='fade-in'>
+            <td><a href="#"><input type="checkbox"></a></td>
+            <td>
+              {{list.task}}
+            </td>
+            <td>
+              {{list.dueDate}}
+            </td>
+            <td>
+              <button type="button" name="button" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#myModal2" @click="editModal(list._id)"> <i class="glyphicon glyphicon-pencil" ></i></button>
+              <button type="button" name="button" class="btn btn-danger btn-circle"  @click="deleteList(list._id)"><i class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        </tr>
+      </table>`
+  })
+
     var main = new Vue({
         el: '#app',
         data:{
@@ -35,7 +56,6 @@ window.onload = function () {
 
             })
             .then(data=>{
-              console.log(data.data);
               self.showListToDo = data.data
 
             })

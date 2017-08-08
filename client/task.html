@@ -11,41 +11,33 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+<link rel="stylesheet" href="css/style.css" media="screen">
 
     <script src="https://unpkg.com/vue"></script>
     <title>todo list</title>
     <script src="js/task.js"></script>
   </head>
   <body>
-    <style media="screen">
-    .btn-circle
-    {
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      padding: 6px 0;
-      font-size: 12px;
-      line-height: 1.428571429;
-      border-radius: 15px;
-    }
-    </style>
-    <h1>INI TODO</h1>
 
-    <div id="app" class="container">
-      <div class="container col-md-offset-4">
-        <form class="form-inline" @submit.prevent="addNewTask()">
-          <div class="form-group">
-            <input type="text" v-model ="addTask" placeholder="New Task" class="form-control">
-            <input type="text" v-model= "date" placeholder="YYYY-MM-DD" class="form-control">
-            <button type="submit" class="btn btn-primary" name="button">Submit</button>
-          </div>
-        </form>
+
+    <div id="app" class="container" style="padding-top :200px">
+      <div class="container ">
+        <div class="col-md-6 col-md-offset-3">
+          <form class="form" @submit.prevent="addNewTask()">
+            <div class="form-group form-inline">
+              <input style="width :75%" type="text" v-model ="addTask" placeholder="New Task" class="form-control">
+              <!-- <input type="text" v-model= "date" placeholder="YYYY-MM-DD" class="form-control"> -->
+              <button type="submit" class="btn btn-primary" name="button">Submit</button>
+            </div>
+          </form>
+        </div>
+
       </div>
+
       <br><br>
       <div class="container">
-        <table class="table">
-          <tr v-for ="list in showListToDo">
+        <table class="table table-hover">
+          <tr v-for ="list in showListToDo" class='fade-in'>
               <td><a href="#"><input type="checkbox"></a></td>
               <td>
                 {{list.task}}
@@ -54,10 +46,15 @@
                 {{list.dueDate}}
               </td>
               <td>
-                <button type="button" name="button" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#myModal2" @click="select(list._id)"> <i class="glyphicon glyphicon-pencil" ></i></button>
+                <button type="button" name="button" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#myModal2" @click="editModal(list._id)"> <i class="glyphicon glyphicon-pencil" ></i></button>
                 <button type="button" name="button" class="btn btn-danger btn-circle"  @click="deleteList(list._id)"><i class="glyphicon glyphicon-trash"></i></button>
               </td>
           </tr>
+        </table>
+      </div>
+      <div>
+        <table class="table table-hover">
+          <list-todo :list-task="showListToDo" :edit="editList" :edit-modal="select" :delete-list="deleteList"></list-todo>
         </table>
       </div>
       <!-- MODAL EDIT -->
