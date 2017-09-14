@@ -3,8 +3,9 @@ var bodyParser = require('body-parser')
 var app = express()
 var mongoose = require('mongoose')
 var cors = require('cors')
-mongoose.connect('mongodb://adnin31:enggakadapasswordnya@ecommerce-shard-00-00-pmhx7.mongodb.net:27017,ecommerce-shard-00-01-pmhx7.mongodb.net:27017,ecommerce-shard-00-02-pmhx7.mongodb.net:27017/todo?ssl=true&replicaSet=ecommerce-shard-0&authSource=admin')
-
+mongoose.connect('mongodb://localhost/todo-list-1', (err) => {
+  err ? console.log('Can\'t connect to database') : console.log('Database connected')
+});
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

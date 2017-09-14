@@ -4,12 +4,13 @@ var Schema =  mongoose.Schema
 
 
 var task = mongoose.Schema({
-  task :{
-    type : String,
-    required :true
+    task :{
+      type : String,
+      required :true
+    },
+    status: String
   },
-  dueDate: Date
-}, {
+  {
   timestamp : true
 })
 var task = mongoose.model('Task',task)

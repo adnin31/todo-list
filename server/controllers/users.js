@@ -1,6 +1,8 @@
 const user = require('../models/users')
 const encryptPassword = require('../helper/encryptPassword')
 const newKey = require('../helper/key')
+var jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 function getData(req,res) {
 
@@ -9,6 +11,8 @@ function getData(req,res) {
 
 function insertData(req,res) {
   var makeKey = newKey()
+  console.log(makeKey);
+  console.log(req.body.password);
   var newUser = new user({
     username  :req.body.username,
     email :req.body.email,
@@ -30,12 +34,12 @@ function updateData(req,res){
   var makeKey = newKey()
   user.update({
     _id : req.params.id
-  },{
+  }, {
     username  :req.body.username,
     email :req.body.email,
     password : encryptPassword(req.body.password,makeKey),
     key: makeKey,
-  },(err,data)=>{
+  }, (err,data)=>{
     if(!err){
       res.send(data)
     }else {
@@ -54,7 +58,7 @@ function removeData(req,res) {
   })
 }
 function getOne(req,res){
-  user.findById(req.params.id)
+  user.findById(req.params.id).populate('task')
   .then(row=>{
     res.send(row)
   })
@@ -63,13 +67,14 @@ function getOne(req,res){
   })
 }
 function signin(req,res){
-  user.find({username: req.body.username}).
-  then(data=>{
-    if (data[0].password == encryptPassword(req.body.password,data[0].key)) {
+  console.log(req.body.username);
+  user.findOne({username: req.body.username})
+  .then(data=>{
+    console.log('masuk data',data);
+    if (data.password == encryptPassword(req.body.password,data.key)) {
       var token = jwt.sign({
-        _id :data[0]._id,
-        username : data[0].username,
-        role : data[0].role
+        _id :data._id,
+        username : data.username
       },process.env.SECRET_KEY);
       res.send(token)
     }else {
@@ -78,4 +83,4 @@ function signin(req,res){
   })
   .catch(err=> res.send('You Must Register First'))
 }
-module.exports = {getData,insertData,updateData,removeData,getOne};
+module.exports = {getData,insertData,updateData,removeData,getOne,signin};

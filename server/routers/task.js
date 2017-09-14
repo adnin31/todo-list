@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const task = require('../controllers/task.js')
+var auth = require('../helper/auth.js')
 
 router.get('/',task.getData)
 router.get('/:id',task.getOne)
-router.post('/',task.insertData)
+router.post('/', auth.authAdmin, task.insertData)
 router.put('/:id',task.updateData)
-router.delete('/:id',task.removeData)
+router.delete('/:userid/:taskid',task.removeData)
 
 
 module.exports = router;

@@ -22,7 +22,7 @@
                         <span class="input-group-addon">
                           <i class="glyphicon glyphicon-user"></i>
                         </span>
-                        <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
+                        <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus v-model="username">
                       </div>
                     </div>
                     <div class="form-group">
@@ -30,11 +30,11 @@
                         <span class="input-group-addon">
                           <i class="glyphicon glyphicon-lock"></i>
                         </span>
-                        <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                        <input class="form-control" placeholder="Password" name="password" type="password" v-model="password">
                       </div>
                     </div>
                     <div class="form-group">
-                      <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                      <input @click="signin" type="button" class="btn btn-lg btn-primary btn-block" value="Sign in">
                     </div>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                     </form>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <button @click="close" type="button" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                   </div>
                 </div>
               </div>
@@ -82,8 +82,57 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-
+  data () {
+    return {
+      username: '',
+      password: '',
+      email: ''
+    }
+  },
+  methods: {
+    register () {
+      var self = this
+      axios.post(`http://localhost:3000/user`, {
+        username: self.username,
+        password: self.password,
+        email: self.email
+      })
+      .then(res => {
+        console.log(res.data)
+        self.username = ''
+        self.password = ''
+        self.email = ''
+      })
+      .catch(err => console.log(err))
+    },
+    close () {
+      this.username = ''
+      this.password = ''
+      this.email = ''
+    },
+    signin () {
+      console.log('masuk sign in')
+      var self = this
+      axios.post(`http://localhost:3000/user/signin`, {
+        username: self.username,
+        password: self.password
+      })
+      .then(res => {
+        self.username = ''
+        self.password = ''
+        console.log(res.data)
+        localStorage.setItem('token', res.data)
+        this.$router.push('/task')
+      })
+      .catch(err => {
+        console.log(err)
+        alert('salah')
+        this.$router.push('/')
+      })
+    }
+  }
 }
 </script>
 
