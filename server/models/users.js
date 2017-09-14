@@ -2,7 +2,7 @@
 var mongoose = require('mongoose')
 var Schema =  mongoose.Schema
 
-var task = mongoose.Schema({
+var users = mongoose.Schema({
 
   username :{
     type : String,
@@ -19,8 +19,12 @@ var task = mongoose.Schema({
   key :{
     type: String,
     required :true
-  }
+  },
+  task :[
+    {type : Schema.Types.ObjectId, ref : 'Task'}
+  ],
+  role: String
 
 })
-var Transaction = mongoose.model('Transaction',transaction)
-module.exports = Transaction;
+var User = mongoose.model('User',users)
+module.exports = User;

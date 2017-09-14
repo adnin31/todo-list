@@ -12,6 +12,8 @@ app.use(bodyParser.json())
 var task = require('./routers/task.js')
 app.use('/task',task)
 
+var user = require('./routers/user')
+app.use('/user',user)
 
 app.get('/',(req,res)=>{
     res.send('yuhuuu')

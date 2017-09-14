@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>halal mart</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue"></script>
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="js/facebook.js"></script>
+
+  </head>
+  <body>
+    <div class="container" >
+      <div class="" id="status">
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="container">
+            <div class="card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin text-center" @submit.prevent="login()">
+                <h1 class="login">LOG IN</h1>
+                <div class="">
+                  <fb:login-button class="button" scope="public_profile,email" onlogin="checkLoginState();">
+                  </fb:login-button>
+                </div>
+                <button type="button" name="button" onclick="FBLogout()">Logout</button>
+            </form><!-- /form -->
+        </div><!-- /card-container -->
+        </div><!-- /container -->
+      </div>
+    </div>
+  </div>
+
+  </body>
+</html>

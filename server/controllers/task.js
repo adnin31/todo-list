@@ -1,13 +1,17 @@
 const task = require('../models/task.js')
+const user = require('../models/users.js')
 
 function getData(req,res) {
-  task.find({},(err ,data)=>{
-    if(!err){
-      res.send(data)
-    }else {
-      res.status(500).send(err)
-    }
-  })
+  // task.find({},(err ,data)=>{
+  //   if(!err){
+  //     res.send(data)
+  //   }else {
+  //     res.status(500).send(err)
+  //   }
+  // })
+  user.findById(req.headers.user).populate('task').then(data=>{
+    res.send(data.task)
+  }).catch(err=>res.send(err))
 }
 
 function insertData(req,res) {
@@ -18,11 +22,26 @@ function insertData(req,res) {
 
   newTask.save((err,data)=>{
     if(!err){
+      user.update({
+        _id :req.headers.user
+      },{
+        $push :{
+          task :  data._id
+        }
+      },(err,data)=>{
+        if(!err){
+          console.log();(data)
+        }else {
+          console.log();(error)
+        }
+      })
       res.send(data)
     }else {
       res.status(500).send(err)
     }
   })
+
+
 }
 
 function updateData(req,res){

@@ -1,9 +1,5 @@
 'use-strict'
-
-
-
 window.onload = function () {
-
   Vue.component('list-todo',{
     props :["list-task","edit","edit-modal","delete-list"],
     template:
