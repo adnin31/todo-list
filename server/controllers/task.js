@@ -54,8 +54,7 @@ function updateData(req,res){
     _id : req.params.id
   },{
     $set:{
-      task  : req.body.task,
-      status: req.body.status
+      task  : req.body.task
     }
   },(err,data)=>{
     if(!err){
@@ -94,7 +93,7 @@ function getOne(req,res){
     res.send(err)
   })
 }
-function done() {
+function done(req,res) {
   task.update({
     _id : req.params.id
   },{

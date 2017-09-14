@@ -16,8 +16,9 @@
         <h1>todo</h1>
         <Todo></Todo>
       </div>
-      <div class="">
+      <div class="col-md-6">
         <h1>done</h1>
+        <Done></Done>
       </div>
     </div>
   </div>
@@ -26,9 +27,11 @@
 <script>
 import axios from 'axios'
 import Todo from '@/components/Todo'
+import Done from '@/components/Done'
 export default {
   components: {
-    Todo
+    Todo,
+    Done
   },
   data () {
     return {

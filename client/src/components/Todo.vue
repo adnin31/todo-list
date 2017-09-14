@@ -1,7 +1,7 @@
 <template lang="html">
   <table class="table table-hover ">
     <tr v-for="tugas in todo">
-        <td><button class="btn btn-success" type="button" name="button">Done</button></td>
+        <td><button @click="done(tugas)" class="btn btn-success" type="button" name="button">Done</button></td>
         <td>
           <h4>{{tugas.task}}</h4>
         </td>
@@ -58,11 +58,20 @@ export default {
         this.$store.dispatch('getTodo')
       })
       .catch(err => console.log(err))
+    },
+    done (id) {
+      console.log(id._id)
+      axios.put(`http://localhost:3000/task/done/${id._id}`)
+      .then(res => {
+        console.log(res)
+        this.$store.dispatch('getTodo')
+      })
+      .catch(err => console.log(err))
     }
   },
   computed: {
     todo () {
-      return this.$store.state.todo
+      return this.$store.getters.todos
     }
   }
 }

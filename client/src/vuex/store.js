@@ -24,5 +24,18 @@ export const store = new Vuex.Store({
       })
       .catch(err => console.log(err))
     }
+  },
+  getters: {
+    doneTodos: state => {
+      return state.todo.filter(todo => {
+        return todo.status === 'done'
+      })
+    },
+    todos: state => {
+      return state.todo.filter(todo => {
+        return todo.status === 'todo'
+      })
+    }
+
   }
 })

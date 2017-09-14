@@ -8,6 +8,6 @@ router.get('/:id',task.getOne)
 router.post('/', auth.authAdmin, task.insertData)
 router.put('/:id',task.updateData)
 router.delete('/:userid/:taskid',task.removeData)
-
+router.put('/done/:id',task.done)
 
 module.exports = router;
